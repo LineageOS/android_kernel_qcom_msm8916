@@ -185,7 +185,6 @@ static void * unflatten_dt_node(void *blob,
 				dad->next->sibling = np;
 			dad->next = np;
 		}
-		kref_init(&np->kref);
 	}
 	/* process properties */
 	for (offset = fdt_first_property_offset(blob, *poffset);
@@ -270,6 +269,8 @@ static void * unflatten_dt_node(void *blob,
 			np->name = "<NULL>";
 		if (!np->type)
 			np->type = "<NULL>";
+
+		of_node_add(np);
 	}
 
 	old_depth = depth;
